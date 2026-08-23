@@ -1,3 +1,5 @@
+### I'm a developer but this plugin was made using AI in some cases.
+
 # Flow Launcher — JetBrains
 
 Open recent projects and JetBrains IDEs from Flow Launcher. **No configuration required**:
