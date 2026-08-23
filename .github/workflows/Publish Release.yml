@@ -1,0 +1,43 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - .github/workflows/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      # Flow Launcher runs Python plugins with its embedded Python 3.11 interpreter.
+      python_ver: '3.11'
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ env.python_ver }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python_ver }}
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'plugin.json'
+          prop_path: 'Version'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt -t ./lib
+          zip -r Flow.Launcher.Plugin.Jetbrains.zip . \
+            -x '*.git*' '.venv/*' '.idea/*' '.claude/*' '*__pycache__*' '*.zip'
+      - name: Publish
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          files: 'Flow.Launcher.Plugin.Jetbrains.zip'
+          tag_name: "v${{steps.version.outputs.prop}}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

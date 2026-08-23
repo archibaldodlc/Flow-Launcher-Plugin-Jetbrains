@@ -1,0 +1,13 @@
+{
+  "$schema": "https://www.flowlauncher.com/schemas/plugin.schema.json",
+  "ID": "a4e2b7c1-3f5d-4a86-9c0e-7d1b2f6a8e31",
+  "ActionKeywords": ["jb"],
+  "Name": "JetBrains Flow Launcher",
+  "Description": "Open recent projects and JetBrains IDEs. Automatic detection, no configuration required.",
+  "Author": "Archibaldo De La Cruz",
+  "Version": "0.1.0",
+  "Language": "python",
+  "Website": "https://github.com/archibaldodlc/Flow-Launcher-Plugin-Jetbrains.git",
+  "IcoPath": "Images\\jetbrains.png",
+  "ExecuteFileName": "main.py"
+}
